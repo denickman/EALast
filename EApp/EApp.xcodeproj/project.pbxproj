@@ -13,6 +13,16 @@
 		85AB3B852E0AC4A30018FDD4 /* EFeediOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 85AB3B812E0AC4A30018FDD4 /* EFeediOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		85AB3C922E0AD0B30018FDD4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85AB39522E0AAD240018FDD4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 85AB39592E0AAD240018FDD4;
+			remoteInfo = EApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		85AB3B862E0AC4A30018FDD4 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -32,6 +42,7 @@
 		85AB395A2E0AAD240018FDD4 /* EApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85AB3B802E0AC4A30018FDD4 /* EFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85AB3B812E0AC4A30018FDD4 /* EFeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EFeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85AB3C8E2E0AD0B30018FDD4 /* EAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -53,6 +64,11 @@
 			path = EApp;
 			sourceTree = "<group>";
 		};
+		85AB3C8F2E0AD0B30018FDD4 /* EAppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = EAppTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +81,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		85AB3C8B2E0AD0B30018FDD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -72,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				85AB395C2E0AAD240018FDD4 /* EApp */,
+				85AB3C8F2E0AD0B30018FDD4 /* EAppTests */,
 				85AB3B7F2E0AC4A30018FDD4 /* Frameworks */,
 				85AB395B2E0AAD240018FDD4 /* Products */,
 			);
@@ -81,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				85AB395A2E0AAD240018FDD4 /* EApp.app */,
+				85AB3C8E2E0AD0B30018FDD4 /* EAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -120,6 +145,29 @@
 			productReference = 85AB395A2E0AAD240018FDD4 /* EApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		85AB3C8D2E0AD0B30018FDD4 /* EAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85AB3C942E0AD0B30018FDD4 /* Build configuration list for PBXNativeTarget "EAppTests" */;
+			buildPhases = (
+				85AB3C8A2E0AD0B30018FDD4 /* Sources */,
+				85AB3C8B2E0AD0B30018FDD4 /* Frameworks */,
+				85AB3C8C2E0AD0B30018FDD4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				85AB3C932E0AD0B30018FDD4 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				85AB3C8F2E0AD0B30018FDD4 /* EAppTests */,
+			);
+			name = EAppTests;
+			packageProductDependencies = (
+			);
+			productName = EAppTests;
+			productReference = 85AB3C8E2E0AD0B30018FDD4 /* EAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -132,6 +180,11 @@
 				TargetAttributes = {
 					85AB39592E0AAD240018FDD4 = {
 						CreatedOnToolsVersion = 16.4;
+					};
+					85AB3C8D2E0AD0B30018FDD4 = {
+						CreatedOnToolsVersion = 16.4;
+						LastSwiftMigration = 1640;
+						TestTargetID = 85AB39592E0AAD240018FDD4;
 					};
 				};
 			};
@@ -150,12 +203,20 @@
 			projectRoot = "";
 			targets = (
 				85AB39592E0AAD240018FDD4 /* EApp */,
+				85AB3C8D2E0AD0B30018FDD4 /* EAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		85AB39582E0AAD240018FDD4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85AB3C8C2E0AD0B30018FDD4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -172,7 +233,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		85AB3C8A2E0AD0B30018FDD4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		85AB3C932E0AD0B30018FDD4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 85AB39592E0AAD240018FDD4 /* EApp */;
+			targetProxy = 85AB3C922E0AD0B30018FDD4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		85AB396E2E0AAD260018FDD4 /* Debug */ = {
@@ -350,6 +426,45 @@
 			};
 			name = Release;
 		};
+		85AB3C952E0AD0B30018FDD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R93AWAT28J;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yaremenko.denis.EAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EApp";
+			};
+			name = Debug;
+		};
+		85AB3C962E0AD0B30018FDD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R93AWAT28J;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yaremenko.denis.EAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -367,6 +482,15 @@
 			buildConfigurations = (
 				85AB396E2E0AAD260018FDD4 /* Debug */,
 				85AB396F2E0AAD260018FDD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		85AB3C942E0AD0B30018FDD4 /* Build configuration list for PBXNativeTarget "EAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85AB3C952E0AD0B30018FDD4 /* Debug */,
+				85AB3C962E0AD0B30018FDD4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
