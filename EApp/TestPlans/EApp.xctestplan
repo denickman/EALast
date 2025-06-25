@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "1B4D7881-F8E3-4009-9F45-D340ADDFCCAD",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:EApp\/EApp.xcodeproj",
+      "identifier" : "85AB39592E0AAD240018FDD4",
+      "name" : "EApp"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:EApp\/EApp.xcodeproj",
+        "identifier" : "85AB3C8D2E0AD0B30018FDD4",
+        "name" : "EAppTests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:EApp\/EApp.xcodeproj",
+        "identifier" : "85AB3DB72E0BC9B20018FDD4",
+        "name" : "EAppUIAcceptanceTests"
+      }
+    }
+  ],
+  "version" : 1
+}
