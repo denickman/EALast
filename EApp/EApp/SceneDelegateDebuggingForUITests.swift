@@ -5,6 +5,11 @@
 //  Created by Denis Yaremenko on 25.06.2025.
 //
 
+
+
+/// For EssentialAppUIAcceptanceTests
+
+/*
 import UIKit
 import EFeed
 
@@ -95,3 +100,4 @@ private class DebuggingHTTPClient: HTTPClient {
 }
 
 #endif
+*/

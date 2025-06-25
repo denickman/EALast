@@ -7,6 +7,11 @@
 
 import XCTest
 
+// uncomment SceneDelegateDebuggingForUITests + SceneDelegateForUITests
+// Currently we use FeedAcceptanceTests for this purpose
+
+/*
+
 final class EssentialAppUIAcceptanceTests: XCTestCase {
     
     // when hte customer has connectivity
@@ -58,3 +63,5 @@ final class EssentialAppUIAcceptanceTests: XCTestCase {
         XCTAssertEqual(feedCells.count, 0)
     }
 }
+ 
+*/

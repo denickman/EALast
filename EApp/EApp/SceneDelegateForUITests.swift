@@ -10,6 +10,10 @@ import EFeed
 import EFeediOS
 import CoreData
 
+/// For EssentialAppUIAcceptanceTests
+
+
+/*
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
@@ -76,3 +80,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
 }
+
+*/
