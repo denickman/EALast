@@ -46,6 +46,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8599F5332E0DA46700054CDD /* CI_iOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = CI_iOS.xctestplan; path = ../EFeed/TestPlans/CI_iOS.xctestplan; sourceTree = "<group>"; };
 		85AB395A2E0AAD240018FDD4 /* EApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85AB3B802E0AC4A30018FDD4 /* EFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85AB3B812E0AC4A30018FDD4 /* EFeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EFeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +115,7 @@
 		85AB39512E0AAD240018FDD4 = {
 			isa = PBXGroup;
 			children = (
+				8599F5332E0DA46700054CDD /* CI_iOS.xctestplan */,
 				85AB395C2E0AAD240018FDD4 /* EApp */,
 				85AB3C8F2E0AD0B30018FDD4 /* EAppTests */,
 				85AB3DB92E0BC9B20018FDD4 /* EAppUIAcceptanceTests */,
