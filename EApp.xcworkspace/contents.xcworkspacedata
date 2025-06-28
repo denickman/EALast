@@ -7,7 +7,4 @@
    <FileRef
       location = "container:EFeed/EFeed.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:EApp/TestPlans/EApp.xctestplan">
-   </FileRef>
 </Workspace>

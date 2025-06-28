@@ -9,7 +9,7 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.yaremenko.denis.EApp</key>
-		<string>elm_prod_profile</string>
+		<string>eapp_prod_profile</string>
 	</dict>
 	<key>signingCertificate</key>
 	<string>Apple Distribution</string>

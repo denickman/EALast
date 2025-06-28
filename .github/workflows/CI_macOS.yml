@@ -2,10 +2,10 @@ name: CI_macOS
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ maina ]
 
-  push:
-    branches: [ main ]
+  # push:
+  #   branches: [ maina ]
 
 jobs:
   build-and-test-macos:
@@ -33,7 +33,11 @@ jobs:
       - name: Build and Test
         run: |
 
-          echo "Now Current directory is:"
+         echo "Current directory is:"
+         ls -la
+
+          cd EFeed
+          echo "Now current directory is:"
           ls -la
 
           xcodebuild clean build test \

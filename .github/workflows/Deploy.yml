@@ -1,11 +1,11 @@
 
 name: Deploy to App Store
-# gpg --symmetric --cipher-algo AES256 --output prod_profile.mobileprovision.gpg prod_profile.mobileprovision
+# gpg --symmetric --cipher-algo AES256 --output eapp_prod_profile.mobileprovision.gpg eapp_prod_profile.mobileprovision
 # gpg --symmetric --cipher-algo AES256 --output prod_cert.p12.gpg prod_cert.p12
 
 on:
   push:
-    branches: [ m ]
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
@@ -17,13 +17,16 @@ jobs:
 
       - name: Install provisioning profiles
         run: |
-          gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.SECRET_KEY }}" --output prod_profile.mobileprovision .github/deployment/prod_profile.mobileprovision.gpg
+          cd .github/deployment
+          ls -la
+
+          gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.SECRET_KEY }}" --output eapp_prod_profile.mobileprovision eapp_prod_profile.mobileprovision.gpg
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp prod_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+          cp eapp_prod_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
 
           echo "check !!!!"
           ls -la ~/Library/MobileDevice/Provisioning\ Profiles/ | grep prod_profile.mobileprovision
-          security cms -D -i prod_profile.mobileprovision | plutil -p -
+          security cms -D -i eapp_prod_profile.mobileprovision | plutil -p -
 
       - name: Install certificates
         run: |
@@ -46,7 +49,6 @@ jobs:
           echo "import prod_certificate OK"
 
           echo "import dev_certificate"
-
           # Импорт dev_certificate.p12 в ключницу
           security import dev_certificate.p12 -t agg -k ~/Library/Keychains/build.keychain -P "${{ secrets.CERTIFICATE_PASSWORD }}" -A
           echo "import dev_certificate OK"
@@ -92,12 +94,12 @@ jobs:
           ls -la
 
           xcodebuild clean archive \
-            -sdk iphoneos \
-            -workspace EApp.xcworkspace \
-            -configuration Release \
-            -scheme EApp \
-            -derivedDataPath /Users/runner/work/EApp/EApp/DerivedData \
-            -archivePath /Users/runner/work/EApp/EApp/DerivedData/Archive/EApp.xcarchive | tee xcodebuild.log
+          -sdk iphoneos \
+          -workspace EApp.xcworkspace \
+          -configuration Release \
+          -scheme EApp \
+          -derivedDataPath /Users/runner/work/EApp/EApp/DerivedData \
+          -archivePath /Users/runner/work/EApp/EApp/DerivedData/Archive/EApp.xcarchive \
 
       - name: List EssentialApp workspace Files
         run: |
@@ -123,6 +125,7 @@ jobs:
 
       - name: Inspect IPA Info.plist
         run: |
+            ls -la
             unzip -p DerivedData/ipa/EApp.ipa Payload/EApp.app/Info.plist | plutil -p -
 
       - name: Upload IPA to TestFlight

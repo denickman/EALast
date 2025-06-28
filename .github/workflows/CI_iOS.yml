@@ -4,11 +4,11 @@ on:
   pull_request:
     branches: [ main ]
 
-  push:
-    branches: [ main ]
+  # push:
+  #   branches: [ main ]
 
 jobs:
-  build-and-test-macos:
+  build-and-test-ios:
     runs-on: macos-latest
     # timeout-minutes: 10
     # concurrency:
@@ -42,4 +42,4 @@ jobs:
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
           -sdk iphonesimulator \
-          -destination "platform=iOS Simulator,name=iPhone 16,OS=18.1" ONLY_ACTIVE_ARCH=YES
+          -destination "platform=iOS Simulator,name=iPhone 16,OS=18.2" ONLY_ACTIVE_ARCH=YES

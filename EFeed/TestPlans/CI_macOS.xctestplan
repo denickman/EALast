@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "42D19231-7864-4F08-92F7-2CECB94FDB98",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:EFeed.xcodeproj",
+        "identifier" : "859D03A42E096A9B002E180C",
+        "name" : "EssentialFeedApiEndToEndTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:EFeed.xcodeproj",
+        "identifier" : "859D03B22E096AA7002E180C",
+        "name" : "EssentialFeedCacheIntegrationTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:EFeed.xcodeproj",
+        "identifier" : "859D01632E06E140002E180C",
+        "name" : "EFeedTests"
+      }
+    }
+  ],
+  "version" : 1
+}

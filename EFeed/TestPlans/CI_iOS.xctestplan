@@ -1,0 +1,59 @@
+{
+  "configurations" : [
+    {
+      "id" : "715816E9-4E9C-4A21-966C-D870F44111BF",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:EApp\/EApp.xcodeproj",
+        "identifier" : "85AB3C8D2E0AD0B30018FDD4",
+        "name" : "EAppTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:EFeed\/EFeed.xcodeproj",
+        "identifier" : "859D01632E06E140002E180C",
+        "name" : "EFeedTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:EFeed\/EFeed.xcodeproj",
+        "identifier" : "859D03EF2E0979F5002E180C",
+        "name" : "EFeediOSTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:EApp\/EApp.xcodeproj",
+        "identifier" : "85AB3DB72E0BC9B20018FDD4",
+        "name" : "EAppUIAcceptanceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:EFeed\/EFeed.xcodeproj",
+        "identifier" : "859D03B22E096AA7002E180C",
+        "name" : "EssentialFeedCacheIntegrationTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:EFeed\/EFeed.xcodeproj",
+        "identifier" : "859D03A42E096A9B002E180C",
+        "name" : "EssentialFeedApiEndToEndTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -23,12 +23,12 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "NO">
             <TestPlanReference
-               reference = "container:TestPlans/CI_iOS.xctestplan">
+               reference = "container:EFeed/TestPlans/CI_iOS.xctestplan">
             </TestPlanReference>
          </BuildActionEntry>
       </BuildActionEntries>

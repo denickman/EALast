@@ -34,8 +34,8 @@ extension Publisher where Output == Data {
     }
 }
 
-extension FeedLoader {
-    public typealias Publisher = AnyPublisher<[FeedImage], Swift.Error>
+public extension FeedLoader {
+    typealias Publisher = AnyPublisher<[FeedImage], Swift.Error>
     
     func loadPublisher() -> Publisher {
         Deferred {
