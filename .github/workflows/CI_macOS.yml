@@ -2,7 +2,7 @@ name: CI_macOS
 
 on:
   pull_request:
-    branches: [ maina ]
+    branches: [ main ]
 
   # push:
   #   branches: [ maina ]
