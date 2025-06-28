@@ -5,9 +5,8 @@
 //  Created by Denis Yaremenko on 25.06.2025.
 //
 
-import Foundation
-import EFeediOS
 import EFeed
+import Combine
 
 public final class FeedLoaderCacheDecorator: FeedLoader {
     
@@ -24,19 +23,19 @@ public final class FeedLoaderCacheDecorator: FeedLoader {
             /// #option 1
             /*
              // option 1.1
-            if let feed = try? result.get() {
-                self?.cache.save(feed, completion: { result in
-                    
-                })
-            }`
+             if let feed = try? result.get() {
+             self?.cache.save(feed, completion: { result in
+             
+             })
+             }`
              
              // option 1.2
              if case let .success(feed) = result {
-                 self?.cache.save(feed) { _ in }
+             self?.cache.save(feed) { _ in }
              }
              
-            completion(result)
-            */
+             completion(result)
+             */
             
             /// #option 1
             completion(result.map { feed in
@@ -45,12 +44,5 @@ public final class FeedLoaderCacheDecorator: FeedLoader {
             })
             
         }
-    }
-}
-
-// to clarify our intend we want to ignore the result
-private extension FeedCache {
-    func saveIgnoringResult(_ feed: [FeedImage]) {
-        save(feed) { _ in }
     }
 }

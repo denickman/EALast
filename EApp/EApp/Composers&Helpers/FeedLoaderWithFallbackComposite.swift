@@ -5,7 +5,6 @@
 //  Created by Denis Yaremenko on 24.06.2025.
 //
 
-import Foundation
 import EFeed
 
 public class FeedLoaderWithFallbackComposite: FeedLoader {
@@ -31,3 +30,4 @@ public class FeedLoaderWithFallbackComposite: FeedLoader {
         }
     }
 }
+
