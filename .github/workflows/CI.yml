@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - m
+      - mastabranch
       #- feature/image-feed/cache-feed-use-case
 
 jobs:
