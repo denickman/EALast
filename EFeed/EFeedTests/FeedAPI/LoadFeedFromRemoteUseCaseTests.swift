@@ -1,15 +1,14 @@
 //
-//  RemoteFeedLoaderTests.swift
+//  LoadFeedFromRemoteUseCaseTests.swift
 //  EFeedTests
 //
-//  Created by Denis Yaremenko on 21.06.2025.
+//  Created by Denis Yaremenko on 29.06.2025.
 //
 
 import XCTest
 import EFeed
 
-/*
-final class RemoteFeedLoaderTests: XCTestCase {
+class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     
     func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSUT()
@@ -113,7 +112,7 @@ final class RemoteFeedLoaderTests: XCTestCase {
         
         XCTAssertTrue(capturedResults.isEmpty)
     }
-
+    
     // MARK: - Helpers
     
     private func makeSUT(
@@ -158,7 +157,7 @@ final class RemoteFeedLoaderTests: XCTestCase {
         
         wait(for: [exp], timeout: 1.0)
     }
-
+    
     private func makeItem(
         id: UUID,
         description: String? = nil,
@@ -184,29 +183,4 @@ final class RemoteFeedLoaderTests: XCTestCase {
     private func failure(_ error: RemoteFeedLoader.Error) -> RemoteFeedLoader.Result {
         .failure(error)
     }
-    
-    // MARK: - HTTPClientSpy
-    
-    private class HTTPClientSpy: HTTPClient {
-
-        var requestedURLs: [URL] {
-            messages.map { $0.url }
-        }
-        
-        private var messages = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
-        
-        func complete(with error: Error, at index: Int = 0) {
-            messages[index].completion(.failure(error))
-        }
-        
-        func complete(with statusCode: Int, data: Data, at index: Int = 0) {
-            let response = HTTPURLResponse(url: requestedURLs[index], statusCode: statusCode, httpVersion: nil, headerFields: nil)!
-            messages[index].completion(.success((data, response)))
-        }
-        
-        func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
-            messages.append((url, completion))
-        }
-    }
 }
-*/

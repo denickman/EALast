@@ -1,0 +1,73 @@
+//
+//  URLProtocolStub.swift
+//  EFeedTests
+//
+//  Created by Denis Yaremenko on 29.06.2025.
+//
+
+import Foundation
+
+class URLProtocolStub: URLProtocol {
+    
+    private struct Stub {
+        let onStartLoading: (URLProtocolStub) -> Void
+    }
+    
+    private static let queue = DispatchQueue(label: "URLProtocolStub.queue")
+    
+    private static var _stub: Stub?  // это реальное хранилище данных
+    private static var stub: Stub? {
+        //  это обёртка с потокобезопасным доступом к _stub через DispatchQueue
+        get { return queue.sync { _stub } }
+        set { queue.sync { _stub = newValue } }
+    }
+    
+    static func stub(data: Data?, response: URLResponse?, error: Error?) {
+        stub = Stub(onStartLoading: { urlProtocol in
+            guard let client = urlProtocol.client else { return }
+            
+            if let data {
+                client.urlProtocol(urlProtocol, didLoad: data)
+            }
+            
+            if let response {
+                client.urlProtocol(urlProtocol, didReceive: response, cacheStoragePolicy: .allowed)
+            }
+            
+            if let error {
+                client.urlProtocol(urlProtocol, didFailWithError: error)
+            } else {
+                client.urlProtocolDidFinishLoading(urlProtocol)
+            }
+        })
+    }
+    
+    static func observeRequest(observer: @escaping (URLRequest) -> Void) {
+        stub = Stub(onStartLoading: { urlProtocol in
+            urlProtocol.client?.urlProtocolDidFinishLoading(urlProtocol)
+            observer(urlProtocol.request)
+        })
+    }
+    
+    static func onStartLoading(observer: @escaping () -> Void) {
+        stub = Stub(onStartLoading: { _ in observer() })
+    }
+    
+    static func removeStub() {
+        stub = nil
+    }
+    
+    override class func canInit(with request: URLRequest) -> Bool {
+        return true
+    }
+    
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+        return request
+    }
+    
+    override func startLoading() {
+        URLProtocolStub.stub?.onStartLoading(self)
+    }
+    
+    override func stopLoading() {}
+}
