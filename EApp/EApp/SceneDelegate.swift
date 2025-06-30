@@ -20,6 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private lazy var remoteURL = URL(string: "https://static1.squarespace.com/static/5891c5b8d1758ec68ef5dbc2/t/5db4155a4fbade21d17ecd28/1572083034355/essential_app_feed.json")!
     
     /// Since iOS 14, if we don't explicitly hold a reference to the RemoteFeedLoader instance, it'll be deallocated before it completes the operation
+    /// Когда ты вызываешь RemoteLoader- Swift использует type inference (вывод типа) — он автоматически выводит тип параметра-дженерика Resource, основываясь на сигнатуре переданного mapper.
+    /// Ты не обязан явно указывать тип RemoteLoader<[FeedImage]>, если Swift может его вывести из контекста. Это работает благодаря type inference и совместимости типов mapper.
     private lazy var remoteFeedLoader = RemoteLoader(url: remoteURL, client: httpClient, mapper: FeedItemsMapper.map)
     
     private lazy var localFeedLoader: LocalFeedLoader = {
@@ -171,6 +173,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 extension SceneDelegate {
     private func makeRemoteFeedLoaderWithLocalFallback() -> FeedLoader.Publisher {
+        
+        /// Legacy Old Style with remoteFeedLoader approach
+        /// extension RemoteLoader: FeedLoader where Resource == [FeedImage]
+//        remoteFeedLoader
+//            .loadPublisher()
+//            .caching(to: localFeedLoader)
+//            .fallback(to: localFeedLoader.loadPublisher)
+  
         /// Option 1
         //        return Deferred {
         //            Future { completion in
@@ -208,3 +218,8 @@ extension SceneDelegate {
     }
 }
 
+
+
+extension RemoteLoader: FeedLoader where Resource == [FeedImage] {
+    
+}
