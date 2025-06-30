@@ -172,7 +172,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 extension SceneDelegate {
-    private func makeRemoteFeedLoaderWithLocalFallback() -> FeedLoader.Publisher {
+    private func makeRemoteFeedLoaderWithLocalFallback() -> AnyPublisher<[FeedImage], Error> {
         
         /// Legacy Old Style with remoteFeedLoader approach
         /// extension RemoteLoader: FeedLoader where Resource == [FeedImage]
@@ -218,8 +218,4 @@ extension SceneDelegate {
     }
 }
 
-
-
-extension RemoteLoader: FeedLoader where Resource == [FeedImage] {
-    
-}
+// extension RemoteLoader: FeedLoader where Resource == [FeedImage] {}

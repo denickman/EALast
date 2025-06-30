@@ -9,6 +9,8 @@ import XCTest
 import EFeed
 import EApp
 
+/// Legacy
+/*
 final class FeedLoaderCacheDecoratorTests: XCTestCase, FeedLoaderTestCase {
     
     func test_load_deliversFeedOnLoaderSuccess() {
@@ -71,3 +73,4 @@ final class FeedLoaderCacheDecoratorTests: XCTestCase, FeedLoaderTestCase {
         }
     }
 }
+*/

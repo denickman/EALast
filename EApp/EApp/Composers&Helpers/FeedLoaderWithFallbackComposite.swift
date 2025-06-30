@@ -7,6 +7,8 @@
 
 import EFeed
 
+/// Legacy
+/*
 public class FeedLoaderWithFallbackComposite: FeedLoader {
     
     private let primary: FeedLoader
@@ -31,3 +33,4 @@ public class FeedLoaderWithFallbackComposite: FeedLoader {
     }
 }
 
+*/

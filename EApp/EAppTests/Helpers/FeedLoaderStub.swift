@@ -7,6 +7,8 @@
 
 import EFeed
 
+/// Legacy
+/*
 class FeedLoaderStub: FeedLoader {
     
     private let result: FeedLoader.Result
@@ -19,3 +21,4 @@ class FeedLoaderStub: FeedLoader {
         completion(result)
     }
 }
+*/

@@ -9,7 +9,9 @@ import XCTest
 import EFeed
 import EApp
 
-final class FeedLoaderWithFallbackCompositeTests: XCTestCase, FeedLoaderTestCase {
+// Legacy
+/*
+final class FeedLoaderWithFallbackCompositeTests: XCTestCase {
     
     // no fail
     func test_load_deliversPrimaryFeedOnPrimaryLoaderSuccess() {
@@ -53,3 +55,4 @@ final class FeedLoaderWithFallbackCompositeTests: XCTestCase, FeedLoaderTestCase
         return sut
     }
 }
+*/

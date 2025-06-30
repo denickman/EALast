@@ -8,6 +8,9 @@
 import EFeed
 import Combine
 
+/// Legacy
+/*
+
 public final class FeedLoaderCacheDecorator: FeedLoader {
     
     private let decoratee: FeedLoader
@@ -46,3 +49,4 @@ public final class FeedLoaderCacheDecorator: FeedLoader {
         }
     }
 }
+*/

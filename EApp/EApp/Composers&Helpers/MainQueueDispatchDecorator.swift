@@ -8,6 +8,9 @@
 import Foundation
 import EFeed
 
+
+/// Legacy
+/*
 final class MainQueueDispatchDecorator<T> {
     
     private let decoratee: T
@@ -39,3 +42,4 @@ extension MainQueueDispatchDecorator: FeedImageDataLoader where T == FeedImageDa
         }
     }
 }
+*/
