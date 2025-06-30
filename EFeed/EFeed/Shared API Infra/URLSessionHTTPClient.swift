@@ -1,8 +1,8 @@
 //
 //  URLSessionHTTPClient.swift
-//  EssentialFeed
+//  EFeed
 //
-//  Created by Denis Yaremenko on 21.01.2025.
+//  Created by Denis Yaremenko on 29.06.2025.
 //
 
 import Foundation
@@ -51,4 +51,3 @@ public final class URLSessionHTTPClient: HTTPClient {
         return URLSessionTaskWrapper(wrapped: task)
     }
 }
-

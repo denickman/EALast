@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private lazy var remoteURL = URL(string: "https://static1.squarespace.com/static/5891c5b8d1758ec68ef5dbc2/t/5db4155a4fbade21d17ecd28/1572083034355/essential_app_feed.json")!
     
     /// Since iOS 14, if we don't explicitly hold a reference to the RemoteFeedLoader instance, it'll be deallocated before it completes the operation
-    private lazy var remoteFeedLoader = RemoteFeedLoader(url: remoteURL, client: httpClient)
+    private lazy var remoteFeedLoader = RemoteLoader(url: remoteURL, client: httpClient, mapper: FeedItemsMapper.map)
     
     private lazy var localFeedLoader: LocalFeedLoader = {
         LocalFeedLoader(store: store, currentDate: Date.init)
@@ -183,8 +183,13 @@ extension SceneDelegate {
         //        return Deferred {
         //            Future(remoteFeedLoader.load)
         //        }
-        return remoteFeedLoader.loadPublisher()
-            .caching(to: localFeedLoader)
+
+        /// Option 2
+        return httpClient
+            .getPublisher(url: remoteURL) // side effect
+            .delay(for: 2, scheduler: DispatchQueue.main)
+            .tryMap(FeedItemsMapper.map) // pure function
+            .caching(to: localFeedLoader) // side effect
             .fallback(to: localFeedLoader.loadPublisher)
     }
     
