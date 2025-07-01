@@ -1,0 +1,54 @@
+//
+//  LoadResourcePresentationAdapter.swift
+//  EApp
+//
+//  Created by Denis Yaremenko on 01.07.2025.
+//
+
+import Foundation
+import Combine
+import EFeediOS
+import EFeed
+
+/*
+ Дополнительный слой адаптеров помогает разделить обязанности:
+ Презентер (FeedImagePresenter) — отвечает за преобразование данных в модель для представления (ViewModel).
+ Адаптер (WeakRefVirtualProxy) — отвечает за передачу данных во View.
+ View (UIViewController) — отвечает за отображение данных.
+ */
+
+final class LoadResourcePresentationAdapter<Resource, View: ResourceView> {
+    
+    // MARK: - Properties
+    
+    var presenter: LoadResourcePresenter<Resource, View>?
+    private var cancellable: Cancellable?
+    private let loader: () -> AnyPublisher<Resource, Error>
+    
+    // MARK: - Init
+    
+    init(loader: @escaping () -> AnyPublisher<Resource, Error>) {
+        self.loader = loader
+    }
+    
+    func loadResource() {
+        presenter?.didStartLoading()
+        
+        cancellable = loader()
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case let .failure(error):
+                    self?.presenter?.didFinishLoading(with: error)
+                }
+            } receiveValue: { [weak self] resource in
+                self?.presenter?.didFinishLoading(with: resource)
+            }
+    }
+}
+
+extension LoadResourcePresentationAdapter: FeedViewControllerDelegate {
+    func didRequestFeedRefresh() {
+        loadResource()
+    }
+}

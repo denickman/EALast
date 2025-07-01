@@ -12,36 +12,36 @@ import Combine
 
 /// Combine solution
 
-final class FeedLoaderPresentationAdapter {
-    
-    var presenter: FeedPresenter?
-    private var cancellable: Cancellable?
-    private let feedLoader: () -> AnyPublisher<[FeedImage], Error>
-    
-    init(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>) {
-        self.feedLoader = feedLoader
-    }
-}
-
-extension FeedLoaderPresentationAdapter: FeedViewControllerDelegate {
-    
-    func didRequestFeedRefresh() {
-        presenter?.didStartLoadingFeed()
-        
-        cancellable = feedLoader()
-            .dispatchOnMainQueue()
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished: break
-                    
-                case .failure(let error):
-                    self?.presenter?.didFinishLoadingFeed(with: error)
-                }
-            } receiveValue: { [weak self] feed in
-                self?.presenter?.didFinishLoadingFeed(with: feed)
-            }
-    }
-}
+//final class FeedLoaderPresentationAdapter {
+//    
+//    var presenter: FeedPresenter?
+//    private var cancellable: Cancellable?
+//    private let feedLoader: () -> AnyPublisher<[FeedImage], Error>
+//    
+//    init(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>) {
+//        self.feedLoader = feedLoader
+//    }
+//}
+//
+//extension FeedLoaderPresentationAdapter: FeedViewControllerDelegate {
+//    
+//    func didRequestFeedRefresh() {
+//        presenter?.didStartLoadingFeed()
+//        
+//        cancellable = feedLoader()
+//            .dispatchOnMainQueue()
+//            .sink { [weak self] completion in
+//                switch completion {
+//                case .finished: break
+//                    
+//                case .failure(let error):
+//                    self?.presenter?.didFinishLoadingFeed(with: error)
+//                }
+//            } receiveValue: { [weak self] feed in
+//                self?.presenter?.didFinishLoadingFeed(with: feed)
+//            }
+//    }
+//}
 
 
 // Swift solution
