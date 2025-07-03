@@ -36,14 +36,13 @@ final class ImageCommentsPresenterTests: XCTestCase {
         ]
         
         // when
-        let viewModel = ImageCommentsPresenter.map(comments, currentDate: now, calendar: calendar, locale: locale)
+        let viewModel =  .map(comments, currentDate: now, calendar: calendar, locale: locale)
         
         // Then
         XCTAssertEqual(viewModel.comments, [
             ImageCommentViewModel(message: "a message", date: "5 minutes ago", username: "a username"),
-            ImageCommentViewModel   (message: "another message", date: "1 day ago", username: "another username")
+            ImageCommentViewModel(message: "another message", date: "1 day ago", username: "another username")
         ])
-        
     }
  
     // MARK: - Helpers
