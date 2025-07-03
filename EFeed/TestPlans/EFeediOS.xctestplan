@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "4865D1F9-F9D6-42DA-991B-F79C40E1D4FE",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:EFeed.xcodeproj",
+        "identifier" : "859D03EF2E0979F5002E180C",
+        "name" : "EFeediOSTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -1,8 +1,8 @@
 //
 //  UIImage+TestHelpers.swift
-//  EFeediOSTests
+//  EssentialFeediOSTests
 //
-//  Created by Denis Yaremenko on 25.06.2025.
+//  Created by Denis Yaremenko on 06.02.2025.
 //
 
 import UIKit

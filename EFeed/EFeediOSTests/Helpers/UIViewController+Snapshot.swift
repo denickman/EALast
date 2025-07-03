@@ -1,8 +1,8 @@
 //
 //  UIViewController+Snapshot.swift
-//  EFeediOSTests
+//  EssentialFeediOSTests
 //
-//  Created by Denis Yaremenko on 25.06.2025.
+//  Created by Denis Yaremenko on 17.02.2025.
 //
 
 import UIKit
@@ -14,7 +14,6 @@ extension UIViewController {
 }
 
 struct SnapshotConfiguration {
-    
     let size: CGSize
     let safeAreaInsets: UIEdgeInsets
     let layoutMargins: UIEdgeInsets
@@ -87,5 +86,3 @@ private final class SnapshotWindow: UIWindow {
         }
     }
 }
-
-
