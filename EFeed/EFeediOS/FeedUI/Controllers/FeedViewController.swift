@@ -8,6 +8,14 @@
 import UIKit
 import EFeed
 
+
+public protocol CellController {
+    func view(in tableView: UITableView) -> UITableViewCell
+    func preload()
+    func cancelLoad()
+}
+
+
 public protocol FeedViewControllerDelegate {
     func didRequestFeedRefresh()
 }
@@ -16,11 +24,11 @@ public final class FeedViewController: UITableViewController {
     
     @IBOutlet private(set) public var errorView: ErrorView?
     
-    private var loadingControllers = [IndexPath: FeedImageCellController]()
+    private var loadingControllers = [IndexPath: CellController]()
     
     public var delegate: FeedViewControllerDelegate?
     
-    private var tableModel = [FeedImageCellController]() {
+    private var tableModel = [CellController]() {
         didSet { tableView.reloadData() }
     }
     
@@ -34,7 +42,7 @@ public final class FeedViewController: UITableViewController {
         tableView.sizeTableHeaderToFit()
     }
     
-    public func display(_ cellControllers: [FeedImageCellController]) {
+    public func display(_ cellControllers: [CellController]) {
         loadingControllers = [:]
         tableModel = cellControllers
     }
@@ -74,7 +82,7 @@ extension FeedViewController: UITableViewDataSourcePrefetching {
         indexPaths.forEach(cancelCellControllerLoad)
     }
     
-    private func cellController(forRowAt indexPath: IndexPath) -> FeedImageCellController {
+    private func cellController(forRowAt indexPath: IndexPath) -> CellController {
         let controller = tableModel[indexPath.row]
         loadingControllers[indexPath] = controller
         return controller
