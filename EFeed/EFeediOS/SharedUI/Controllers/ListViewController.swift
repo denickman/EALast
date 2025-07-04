@@ -22,6 +22,7 @@ public final class ListViewController: UITableViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.separatorStyle = .none
         configureErrorView()
         refresh()
     }
