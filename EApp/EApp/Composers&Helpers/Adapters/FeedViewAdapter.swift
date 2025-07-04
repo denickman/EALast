@@ -48,7 +48,7 @@ final class FeedViewAdapter: ResourceView {
 //                }
             )
             
-            return CellController(view)
+            return CellController(id: UUID(), view)
         })
     }
 }
