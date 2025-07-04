@@ -13,8 +13,8 @@ public protocol FeedImageCellControllerDelegate {
     func didCancelImageRequest()
 }
 
-public final class FeedImageCellController: CellController, ResourceView, ResourceLoadingView, ResourceErrorView {
-    
+public final class FeedImageCellController: NSObject {
+
     public typealias ResourceViewModel = UIImage
     
     // the only things that will change is <UIImage> that will come asyncronously from the backend
@@ -22,59 +22,13 @@ public final class FeedImageCellController: CellController, ResourceView, Resour
     private let delegate: FeedImageCellControllerDelegate
     private let viewModel: FeedImageViewModel // never change
     
-    
     public init(viewModel: FeedImageViewModel, delegate: FeedImageCellControllerDelegate) {
         self.delegate = delegate
         self.viewModel = viewModel
     }
     
     // MARK: - Methods
-    
-    public func view(in tableView: UITableView) -> UITableViewCell {
-        cell = tableView.dequeueReusableCell()
-        
-        cell?.locationContainer.isHidden = !viewModel.hasLocation
-        cell?.locationLabel.text = viewModel.location
-        cell?.descriptionLabel.text = viewModel.description
-        cell?.onRetry = delegate.didRequestImage
- 
-        cell?.onReuse = { [weak self] in
-            self?.releaseCellForReuse()
-        }
-        
-        delegate.didRequestImage()
-        
-        /// accessibilityIdentifier for EssentialAppUIAcceptanceTests
-        cell?.accessibilityIdentifier = "feed-image-cell"
-        cell?.feedImageView.accessibilityIdentifier = "feed-image-view"
 
-        return cell!
-    }
-    
-    public func preload() {
-        delegate.didRequestImage()
-    }
-    
-    public func cancelLoad() {
-        releaseCellForReuse()
-        delegate.didCancelImageRequest()
-    }
-
-    /// in order to use shared logic we split into two `display` methods
-    /// splitting that unify all the states in one into multiple view model
-    
-    public func display(_ viewModel: UIImage) {
-        cell?.feedImageView.setImageAnimated(viewModel)
-    }
-    
-    public func display(_ viewModel: ResourceLoadingViewModel) {
-        cell?.feedImageContainer.isShimmering = viewModel.isLoading
-    }
-    
-    public func display(_ viewModel: ResourceErrorViewModel) {
-        cell?.feedImageRetryButton.isHidden = viewModel.message == nil
-    }
-    
     /*
      1. Оптимизация повторного использования ячеек (cell reuse):
      На iOS 15+ таблицы могут использовать кэшированные ячейки, чтобы избежать их повторного создания при быстром прокручивании. Когда ячейка прокручивается, она может быть удалена, но не пересоздаваться, если уже существует кэшированная версия для этого индекса. Это улучшает производительность, так как создание новых ячеек требует больше времени.
@@ -101,4 +55,70 @@ public final class FeedImageCellController: CellController, ResourceView, Resour
         cell?.onReuse = nil
         cell = nil
     }
+}
+
+extension FeedImageCellController: ResourceView, ResourceLoadingView, ResourceErrorView {
+    
+    /// in order to use shared logic we split into two `display` methods
+    /// splitting that unify all the states in one into multiple view model
+    
+    public func display(_ viewModel: UIImage) {
+        cell?.feedImageView.setImageAnimated(viewModel)
+    }
+    
+    public func display(_ viewModel: ResourceLoadingViewModel) {
+        cell?.feedImageContainer.isShimmering = viewModel.isLoading
+    }
+    
+    public func display(_ viewModel: ResourceErrorViewModel) {
+        cell?.feedImageRetryButton.isHidden = viewModel.message == nil
+    }
+    
+}
+
+
+extension FeedImageCellController: CellController {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        cell = tableView.dequeueReusableCell()
+        
+        cell?.locationContainer.isHidden = !viewModel.hasLocation
+        cell?.locationLabel.text = viewModel.location
+        cell?.descriptionLabel.text = viewModel.description
+        cell?.onRetry = delegate.didRequestImage
+ 
+        cell?.onReuse = { [weak self] in
+            self?.releaseCellForReuse()
+        }
+        
+        delegate.didRequestImage()
+        
+        /// accessibilityIdentifier for EssentialAppUIAcceptanceTests
+        cell?.accessibilityIdentifier = "feed-image-cell"
+        cell?.feedImageView.accessibilityIdentifier = "feed-image-view"
+
+        return cell!
+    }
+    
+    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        delegate.didRequestImage()
+    }
+    
+    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cancelLoad()
+    }
+    
+    public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        cancelLoad()
+    }
+    
+    private func cancelLoad() {
+        releaseCellForReuse()
+        delegate.didCancelImageRequest()
+    }
+    
+    
 }
