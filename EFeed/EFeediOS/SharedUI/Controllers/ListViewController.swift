@@ -8,7 +8,10 @@
 import UIKit
 import EFeed
 
-public typealias CellController = UITableViewDataSource & UITableViewDelegate & UITableViewDataSourcePrefetching
+//public typealias CellController = UITableViewDataSource & UITableViewDelegate & UITableViewDataSourcePrefetching
+// instead of typealias that confirming type must implemnt 3 protocols we can use tuple with optional params inside
+
+//public typealias CellController = (dataSource: UITableViewDataSource, delegate: UITableViewDelegate?, dataSourcePrefetching: UITableViewDataSourcePrefetching?)
 
 public final class ListViewController: UITableViewController {
     
@@ -49,42 +52,42 @@ extension ListViewController: UITableViewDataSourcePrefetching {
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let ctrl = cellController(forRowAt: indexPath)
-        return ctrl.tableView(tableView, cellForRowAt: indexPath)
+        let ds = cellController(forRowAt: indexPath).dataSource
+        return ds.tableView(tableView, cellForRowAt: indexPath)
     }
     
     /// Когда вы вызываете `tableView.reloadData()`, это приводит к повторной загрузке данных в таблице, что включает перерасчет всех видимых ячеек и обновление их на экране. Однако, перед тем как обновить эти ячейки, система вызывает метод делегата `tableView(_:didEndDisplaying:forRowAt:)` для каждой ячейки, которая больше не отображается на экране.
-
+    
     /// When updating the table model and reloading the table, UIKit calls `didEndDisplayingCell` for each removed cell that was previously visible. Since we're canceling requests in this method, we could be sending messages to the new models or potentially crashing in case the new table model has fewer items than the previous one!
     
     /// This is not a big problem at the moment since items cannot be removed from the feed. But we cannot assume the backend will keep this behavior going further.
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let ctrl = removeLoadingController(forRowAt: indexPath)
-        ctrl?.tableView?(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+        let delegate = removeLoadingController(forRowAt: indexPath)?.delegate
+        delegate?.tableView?(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach { indexPath in
-            let ctrl = cellController(forRowAt: indexPath)
-            ctrl.tableView(tableView, prefetchRowsAt: [indexPath])
+            let pds = cellController(forRowAt: indexPath).dataSourcePrefetching
+            pds?.tableView(tableView, prefetchRowsAt: [indexPath])
         }
     }
     
     public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach { indexPath in
-            let ctrl = cellController(forRowAt: indexPath)
-            ctrl.tableView?(tableView, cancelPrefetchingForRowsAt: [indexPath])
+            let pds = cellController(forRowAt: indexPath).dataSourcePrefetching
+            pds?.tableView?(tableView, cancelPrefetchingForRowsAt: [indexPath])
         }
     }
     
-    private func cellController(forRowAt indexPath: IndexPath) -> CellController {
+    public func cellController(forRowAt indexPath: IndexPath) -> CellController {
         let controller = tableModel[indexPath.row]
         loadingControllers[indexPath] = controller
         return controller
     }
     
-    private func removeLoadingController(forRowAt indexPath: IndexPath) -> CellController? {
+    public func removeLoadingController(forRowAt indexPath: IndexPath) -> CellController? {
         let ctrl = loadingControllers[indexPath]
         loadingControllers[indexPath] = nil
         return ctrl

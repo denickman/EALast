@@ -73,11 +73,11 @@ extension FeedImageCellController: ResourceView, ResourceLoadingView, ResourceEr
     public func display(_ viewModel: ResourceErrorViewModel) {
         cell?.feedImageRetryButton.isHidden = viewModel.message == nil
     }
-    
+     
 }
 
 
-extension FeedImageCellController: CellController {
+extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
