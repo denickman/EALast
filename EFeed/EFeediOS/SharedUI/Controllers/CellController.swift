@@ -30,6 +30,7 @@ public struct CellController {
     // withoud id we cannot confirm to equatable or hasahble, so we need id
    /// AnyHashable — это тип-обертка, позволяющий хранить любые Hashable значения внутри себя. [42, "Hello", UUID()]
    /// Основное предназначение AnyHashable — работа с разными типами, соответствующими Hashable, в одной коллекции.
+    ///
 
     let id: AnyHashable // когда необходимо работать с hashable но без привязки к конкретному типу
     let dataSource: UITableViewDataSource
@@ -52,3 +53,14 @@ public struct CellController {
     }
 }
 
+
+extension CellController: Equatable, Hashable {
+    
+    public static func == (lhs: CellController, rhs: CellController) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
