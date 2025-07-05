@@ -16,13 +16,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Properties
     
     var window: UIWindow?
+//
+//    private lazy var remoteURL = URL(string: "https://static1.squarespace.com/static/5891c5b8d1758ec68ef5dbc2/t/5db4155a4fbade21d17ecd28/1572083034355/essential_app_feed.json")!
+    
+    private lazy var baseURL = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed")!
 
-    private lazy var remoteURL = URL(string: "https://static1.squarespace.com/static/5891c5b8d1758ec68ef5dbc2/t/5db4155a4fbade21d17ecd28/1572083034355/essential_app_feed.json")!
     
     /// Since iOS 14, if we don't explicitly hold a reference to the RemoteFeedLoader instance, it'll be deallocated before it completes the operation
     /// Когда ты вызываешь RemoteLoader- Swift использует type inference (вывод типа) — он автоматически выводит тип параметра-дженерика Resource, основываясь на сигнатуре переданного mapper.
     /// Ты не обязан явно указывать тип RemoteLoader<[FeedImage]>, если Swift может его вывести из контекста. Это работает благодаря type inference и совместимости типов mapper.
-    private lazy var remoteFeedLoader = RemoteLoader(url: remoteURL, client: httpClient, mapper: FeedItemsMapper.map)
+//    private lazy var remoteFeedLoader = RemoteLoader(url: remoteURL, client: httpClient, mapper: FeedItemsMapper.map)
     
     private lazy var localFeedLoader: LocalFeedLoader = {
         LocalFeedLoader(store: store, currentDate: Date.init)
@@ -38,6 +41,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private lazy var httpClient: HTTPClient = {
         URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
     }()
+    
+    private lazy var navigationController = UINavigationController(
+        rootViewController: FeedUIComposer.feedComposedWith(
+            feedLoader: makeRemoteFeedLoaderWithLocalFallback,
+            imageLoader: makeLocalImageLoaderWithRemoteFallback,
+            selection: showComments))
     
     // MARK: - Init
     
@@ -57,15 +66,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // Combine
     func configureWindow() {
-        let feedViewCtrl = FeedUIComposer.feedComposedWith(
-            feedLoader: makeRemoteFeedLoaderWithLocalFallback,
-            imageLoader: makeLocalImageLoaderWithRemoteFallback
-        )
-        
-        window?.rootViewController = UINavigationController(rootViewController: feedViewCtrl)
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
+ 
+    private func showComments(for image: FeedImage) {
+        let url = ImageCommentsEndpoint.get(image.id).url(baseURL: baseURL)
+        let comments = CommentsUIComposer.commentsComposedWith(commentsLoader: makeRemoteCommentsLoader(url: url))
+        navigationController.pushViewController(comments, animated: true)
+    }
     
+    private func makeRemoteCommentsLoader(url: URL) -> () -> AnyPublisher<[ImageComment], Error> {
+        return { [httpClient] in
+            return httpClient
+                .getPublisher(url: url)
+                .tryMap(ImageCommentsMapper.map)
+                .eraseToAnyPublisher()
+        }
+    }
+    
+    func sceneWillResignActive(_ scene: UIScene) {
+        localFeedLoader.validateCache { _ in }
+    }
+  
     // Swift
     /*
     func configureWindow() {
@@ -105,12 +128,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
      */
-    
-    func sceneWillResignActive(_ scene: UIScene) {
-        localFeedLoader.validateCache { _ in }
-    }
 }
-
 
 
 
@@ -136,9 +154,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
  //        window?.makeKeyAndVisible()
  //    }
  */
-
-
-
 
 
 
@@ -196,7 +211,7 @@ extension SceneDelegate {
 
         /// Option 2
         return httpClient
-            .getPublisher(url: remoteURL) // side effect
+            .getPublisher(url: baseURL) // side effect
             .delay(for: 2, scheduler: DispatchQueue.main)
             .tryMap(FeedItemsMapper.map) // pure function
             .caching(to: localFeedLoader) // side effect

@@ -21,10 +21,16 @@ public final class FeedImageCellController: NSObject {
     private var cell: FeedImageCell?
     private let delegate: FeedImageCellControllerDelegate
     private let viewModel: FeedImageViewModel // never change
+    private let selection: () -> Void
     
-    public init(viewModel: FeedImageViewModel, delegate: FeedImageCellControllerDelegate) {
+    public init(
+        viewModel: FeedImageViewModel,
+        delegate: FeedImageCellControllerDelegate,
+        selection: @escaping () -> Void
+    ) {
         self.delegate = delegate
         self.viewModel = viewModel
+        self.selection = selection
     }
     
     // MARK: - Methods
@@ -76,10 +82,14 @@ extension FeedImageCellController: ResourceView, ResourceLoadingView, ResourceEr
      
 }
 
-
 extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(">>> Did tap on cell")
+        selection()
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
