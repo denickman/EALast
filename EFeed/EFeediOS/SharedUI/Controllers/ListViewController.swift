@@ -13,7 +13,9 @@ public final class ListViewController: UITableViewController {
     // MARK: - Properties
     
     public var onRefresh: (() -> Void)?
+    public var onLoadMore: (() -> Void)?
     private(set) public var errorView = ErrorView()
+    
     
         // CellController should be Hashable so diffable data source can compare any change to the model, it`s keep track the state for us
     // DDS will try to imply by the estimated row height how many cells it can load ahead of time and load only these cells

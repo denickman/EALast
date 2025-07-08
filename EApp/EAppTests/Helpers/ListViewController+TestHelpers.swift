@@ -23,6 +23,10 @@ extension ListViewController {
         refreshControl?.simulatePullToRefresh()
     }
     
+    func simulateUserInitiatedFeedReload() {
+        refreshControl?.simulatePullToRefresh()
+    }
+    
     // for error view tapping
     func simulateErrorViewTap() {
         errorView.simulateTap()
@@ -123,20 +127,4 @@ extension ListViewController {
         let index = IndexPath(row: row, section: commentsSection)
         return ds?.tableView(tableView, cellForRowAt: index) as? ImageCommentCell
     }
-}
-
-private class DummyView: ResourceView {
-    func display(_ viewModel: Any) {}
-}
-
-var loadError: String {
-    LoadResourcePresenter<Any, DummyView>.loadError
-}
-
-var feedTitle: String {
-    FeedPresenter.title
-}
-
-var commentstitle: String {
-    ImageCommentsPresenter.title
 }
